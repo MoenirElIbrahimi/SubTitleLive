@@ -22,4 +22,4 @@
    node index.js
    ```
 2. Open the index.html from files: 
-<img src="https://github.com/user-attachments/assets/1440d462-83c5-4b38-85d5-850e68ee623e" width="500">
+<img src="https://github.com/user-attachments/assets/8b11011c-aa98-4408-b967-039278a8d646" width="500">

@@ -1,0 +1,4 @@
+deepgram-proxy/node_modules
+.env
+deepgram-proxy/package.json
+deepgram-proxy/package-lock.json

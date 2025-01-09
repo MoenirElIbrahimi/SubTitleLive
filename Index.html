@@ -40,22 +40,30 @@
                 socket.send(event.data);
               }
             });
-            mediaRecorder.start(250);
+            mediaRecorder.start(200);
+            console.log("mediaRecorder.start()");
           };
   
-          socket.onmessage = async (message) => {
-            const received = JSON.parse(message.data);
-            const transcript = received.channel.alternatives[0].transcript;
-  
-            if (transcript && received.is_final) {
-              document.querySelector('#transcript').textContent = transcript;
-  
-              // Vertaal de tekst met je backend
-              const translatedText = await translateText(transcript);
-              document.querySelector('#translated').textContent = translatedText;
-            }
-          };
-  
+           let sentences = []; // Array om de zinnen op te slaan
+
+            socket.onmessage = async (message) => {
+              const received = JSON.parse(message.data);
+              const transcript = received.channel.alternatives[0].transcript;
+
+              if (transcript && received.is_final) {
+                // Voeg de nieuwe zin toe aan de array
+                sentences.push(transcript);
+
+                // Controleer of er meer dan 2 zinnen zijn, zo ja, verwijder de oudste
+                if (sentences.length > 2) {
+                  sentences.shift(); // Verwijder de eerste zin (oudste)
+                }
+
+                // Update de weergegeven tekst
+                document.querySelector('#transcript').textContent = sentences.join('\n');
+              }
+            };
+
           socket.onclose = (event) => {
             console.log({ event: 'onclose', reason: event.reason, code: event.code });
             document.querySelector('#status').textContent = 'Verbinding verbroken.';

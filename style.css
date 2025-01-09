@@ -49,6 +49,11 @@ body {
     color: #2c3e50;
     border-left: 6px solid #3498db;
   }
+
+  #transcript {
+    white-space: pre-line;
+  }
+  
   
   #translated {
     background-color: #ffffff;

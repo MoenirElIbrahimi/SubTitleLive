@@ -39,8 +39,11 @@
     </div>
   </div>
 
+  <div class = "row">
   <div id="transcript">Deepgram transcript komt hier...</div>
   <div id="translated">Vertaalde tekst komt hier...</div>
+  </div>
+
 
   <script>
     (async () => {
@@ -48,6 +51,9 @@
         const response = await fetch('http://localhost:3000/deepgram-key');
         const { apiKey } = await response.json();
 
+        let sentences = []; 
+        let sentencesTranslate = [];
+        
         if (!apiKey) {
           document.querySelector('#status').textContent = 'Kan API-sleutel niet ophalen.';
           return;
@@ -82,24 +88,34 @@
                 socket.send(event.data);
               }
             });
-            mediaRecorder.start(250); // Send audio chunks every 250ms
+            mediaRecorder.start(200);
+            console.log("");
           };
 
-          socket.onmessage = async (message) => {
-            const received = JSON.parse(message.data);
-            const transcript = received.channel.alternatives[0].transcript;
+            socket.onmessage = async (message) => {
+              const received = JSON.parse(message.data);
+              const transcript = received.channel.alternatives[0].transcript;
+              
+              if (transcript && received.is_final) {
+                sentences.push(transcript);
 
-            if (transcript && received.is_final) {
-              document.querySelector('#transcript').textContent = transcript;
+                if (sentences.length > 11) {
+                  sentences.shift(); // Verwijder de eerste zin (oudste)
+                }
 
-              // Get selected target language
-              const targetLang = document.querySelector('#target-lang').value;
+                // Update de weergegeven tekst
+                document.querySelector('#transcript').textContent = sentences.join('\n');
 
-              // Translate text
-              const translatedText = await translateText(transcript, targetLang);
-              document.querySelector('#translated').textContent = translatedText;
-            }
-          };
+                const translatedText = await translateText(transcript);
+                sentencesTranslate.push(translatedText);
+
+                if (sentencesTranslate.length > 11) {
+                  sentencesTranslate.shift(); // Verwijder de eerste zin (oudste)
+                }
+
+                document.querySelector('#translated').textContent = sentencesTranslate.join('\n');
+              }
+            };
 
           socket.onclose = (event) => {
             console.log(`Socket closed: ${event.reason}`);

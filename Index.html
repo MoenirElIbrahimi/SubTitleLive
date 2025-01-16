@@ -10,19 +10,23 @@
   <h1>SubTitleLive</h1>
   <label for="speech-input">Spreek in het Nederlands (real-time):</label>
   <p id="status">Verbinden...</p>
+  <div class = row>
   <div id="transcript">Deepgram transcript komt hier...</div>
   <div id="translated">Vertaalde tekst komt hier...</div>
+  </div>
+
 
   <script>
     // Define the translateText function
-    
-  
     (async () => {
       try {
         // Fetch the Deepgram API key from the backend
         const response = await fetch('http://localhost:3000/deepgram-key');
         const { apiKey } = await response.json();
-  
+
+        let sentences = []; 
+        let sentencesTranslate = [];
+
         if (!apiKey) {
           document.querySelector('#status').textContent = 'Kan API-sleutel niet ophalen.';
           return;
@@ -41,26 +45,35 @@
               }
             });
             mediaRecorder.start(200);
-            console.log("mediaRecorder.start()");
+            console.log("");
           };
   
-           let sentences = []; // Array om de zinnen op te slaan
+
 
             socket.onmessage = async (message) => {
               const received = JSON.parse(message.data);
               const transcript = received.channel.alternatives[0].transcript;
-
+              
               if (transcript && received.is_final) {
-                // Voeg de nieuwe zin toe aan de array
                 sentences.push(transcript);
 
-                // Controleer of er meer dan 2 zinnen zijn, zo ja, verwijder de oudste
-                if (sentences.length > 2) {
+
+
+                if (sentences.length > 11) {
                   sentences.shift(); // Verwijder de eerste zin (oudste)
                 }
 
                 // Update de weergegeven tekst
                 document.querySelector('#transcript').textContent = sentences.join('\n');
+
+                const translatedText = await translateText(transcript);
+                sentencesTranslate.push(translatedText);
+
+                if (sentencesTranslate.length > 11) {
+                  sentencesTranslate.shift(); // Verwijder de eerste zin (oudste)
+                }
+
+                document.querySelector('#translated').textContent = sentencesTranslate.join('\n');
               }
             };
 
@@ -78,8 +91,7 @@
         console.error('Error fetching Deepgram API key:', error);
         document.querySelector('#status').textContent = 'Kan geen verbinding maken met backend.';
       }
-    }
-  )();
+    })();
 
   // Functie om tekst te vertalen via je backend
   const translateText = async (text) => {

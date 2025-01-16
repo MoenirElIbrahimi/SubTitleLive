@@ -8,47 +8,89 @@
 </head>
 <body>
   <h1>SubTitleLive</h1>
-  <label for="speech-input">Spreek in het Nederlands (real-time):</label>
-  <p id="status">Verbinden...</p>
-  <div class = row>
+
+  <!-- Language selection -->
+  <div class="language-selectors">
+    <div>
+      <label for="source-lang">Taal van de spraak:</label>
+      <select id="source-lang" class="styled-select">
+        <option value="nl">Nederlands</option>
+        <option value="en">Engels</option>
+        <option value="es">Spaans</option>
+        <option value="fr">Frans</option>
+        <option value="de">Duits</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="speech-input">Spreek in real-time:</label>
+      <p id="status">Verbinden...</p>
+    </div>
+
+    <div>
+      <label for="target-lang">Taal van de vertaling:</label>
+      <select id="target-lang" class="styled-select">
+        <option value="EN">Engels</option>
+        <option value="NL">Nederlands</option>
+        <option value="ES">Spaans</option>
+        <option value="FR">Frans</option>
+        <option value="DE">Duits</option>
+      </select>
+    </div>
+  </div>
+
+  <div class = "row">
   <div id="transcript">Deepgram transcript komt hier...</div>
   <div id="translated">Vertaalde tekst komt hier...</div>
   </div>
 
 
   <script>
-    // Define the translateText function
     (async () => {
       try {
-        // Fetch the Deepgram API key from the backend
         const response = await fetch('http://localhost:3000/deepgram-key');
         const { apiKey } = await response.json();
 
         let sentences = []; 
         let sentencesTranslate = [];
-
+        
         if (!apiKey) {
           document.querySelector('#status').textContent = 'Kan API-sleutel niet ophalen.';
           return;
         }
-  
-        navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+
+        // Monitor for language changes
+        const sourceLangSelector = document.querySelector('#source-lang');
+
+        const startListening = async (language) => {
+          // Stop existing stream and connections if they exist
+          if (window.mediaRecorder) {
+            window.mediaRecorder.stop();
+            window.mediaRecorder.stream.getTracks().forEach((track) => track.stop());
+          }
+          if (window.socket) {
+            window.socket.close();
+          }
+
+          // Update the status to indicate reconnection in progress
+          document.querySelector('#status').textContent = `Verbinden met Deepgram (${language.toUpperCase()})...`;
+
+          // Initialize new media stream and WebSocket connection
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
           const mediaRecorder = new MediaRecorder(stream);
-          const socket = new WebSocket('wss://api.deepgram.com/v1/listen?language=nl', ['token', apiKey]);
-  
+          const socket = new WebSocket(`wss://api.deepgram.com/v1/listen?language=${language}`, ['token', apiKey]);
+
           socket.onopen = () => {
-            console.log({ event: 'onopen' });
-            document.querySelector('#status').textContent = 'Verbonden met Deepgram';
+            console.log(`Connected to Deepgram with language: ${language}`);
+            document.querySelector('#status').textContent = `Verbonden met Deepgram (${language.toUpperCase()})`;
             mediaRecorder.addEventListener('dataavailable', (event) => {
-              if (event.data.size > 0 && socket.readyState === 1) {
+              if (event.data.size > 0 && socket.readyState === WebSocket.OPEN) {
                 socket.send(event.data);
               }
             });
             mediaRecorder.start(200);
             console.log("");
           };
-  
-
 
             socket.onmessage = async (message) => {
               const received = JSON.parse(message.data);
@@ -56,8 +98,6 @@
               
               if (transcript && received.is_final) {
                 sentences.push(transcript);
-
-
 
                 if (sentences.length > 11) {
                   sentences.shift(); // Verwijder de eerste zin (oudste)
@@ -78,14 +118,28 @@
             };
 
           socket.onclose = (event) => {
-            console.log({ event: 'onclose', reason: event.reason, code: event.code });
+            console.log(`Socket closed: ${event.reason}`);
             document.querySelector('#status').textContent = 'Verbinding verbroken.';
           };
-  
+
           socket.onerror = (error) => {
-            console.error({ event: 'onerror', error });
+            console.error('WebSocket error:', error);
             document.querySelector('#status').textContent = 'Er is een fout opgetreden.';
           };
+
+          // Store references to stop later if needed
+          window.mediaRecorder = mediaRecorder;
+          window.socket = socket;
+        };
+
+        // Start listening with the initially selected language
+        let currentSourceLang = sourceLangSelector.value;
+        await startListening(currentSourceLang);
+
+        // Restart listening when the source language changes
+        sourceLangSelector.addEventListener('change', async () => {
+          currentSourceLang = sourceLangSelector.value;
+          await startListening(currentSourceLang);
         });
       } catch (error) {
         console.error('Error fetching Deepgram API key:', error);
@@ -93,8 +147,7 @@
       }
     })();
 
-  // Functie om tekst te vertalen via je backend
-  const translateText = async (text) => {
+    const translateText = async (text, targetLang) => {
       try {
         const response = await fetch('http://localhost:3000/translate', {
           method: 'POST',
@@ -103,10 +156,10 @@
           },
           body: JSON.stringify({
             text: text,
-            target_lang: 'EN',
+            target_lang: targetLang,
           }),
         });
-  
+
         const result = await response.json();
         return result.translations[0].text;
       } catch (error) {

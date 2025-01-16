@@ -8,7 +8,8 @@ body {
     flex-direction: column;
     align-items: center;
   }
-  
+
+
   h1 {
     color: #1a1a1a;
     text-align: center;
@@ -27,22 +28,30 @@ body {
     padding: 10px 20px;
     border-radius: 8px;
     margin: 1rem 0;
-    font-size: 0.9rem;
+    font-size: 1.3rem;
     color: #1976d2;
   }
   
   /* Large text blocks for transcript and translation */
+  .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    gap: 2%; 
+  }
+  
   #transcript, #translated {
-    width: 90%;
-    max-width: 800px;
-    min-height: 150px;
-    margin: 1rem auto;
+    height: 500px; 
+    width: 48%;    
+    margin: 0;     
     padding: 2rem;
     border-radius: 12px;
     font-size: 2rem;
     line-height: 1.4;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
   }
+  
   
   #transcript {
     background-color: #ffffff;
@@ -50,9 +59,10 @@ body {
     border-left: 6px solid #3498db;
   }
 
-  #transcript {
+  #transcript, #translated  {
     white-space: pre-line;
   }
+
   
   
   #translated {

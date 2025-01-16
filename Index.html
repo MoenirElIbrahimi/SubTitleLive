@@ -92,30 +92,33 @@
             console.log("");
           };
 
-            socket.onmessage = async (message) => {
-              const received = JSON.parse(message.data);
-              const transcript = received.channel.alternatives[0].transcript;
-              
-              if (transcript && received.is_final) {
-                sentences.push(transcript);
+          socket.onmessage = async (message) => {
+          const received = JSON.parse(message.data);
+          const transcript = received.channel.alternatives[0].transcript;
 
-                if (sentences.length > 11) {
-                  sentences.shift(); // Verwijder de eerste zin (oudste)
-                }
+          if (transcript && received.is_final) {
+            sentences.push(transcript);
 
-                // Update de weergegeven tekst
-                document.querySelector('#transcript').textContent = sentences.join('\n');
+            if (sentences.length > 11) {
+              sentences.shift();
+            }
+            document.querySelector('#transcript').textContent = sentences.join('\n');
 
-                const translatedText = await translateText(transcript);
-                sentencesTranslate.push(translatedText);
 
-                if (sentencesTranslate.length > 11) {
-                  sentencesTranslate.shift(); // Verwijder de eerste zin (oudste)
-                }
+            const targetLang = document.querySelector('#target-lang').value;
 
-                document.querySelector('#translated').textContent = sentencesTranslate.join('\n');
-              }
-            };
+
+            const translatedText = await translateText(transcript, targetLang);
+            sentencesTranslate.push(translatedText);
+
+            if (sentencesTranslate.length > 11) {
+              sentencesTranslate.shift();
+            }
+
+            document.querySelector('#translated').textContent = sentencesTranslate.join('\n');
+          }
+        };
+
 
           socket.onclose = (event) => {
             console.log(`Socket closed: ${event.reason}`);

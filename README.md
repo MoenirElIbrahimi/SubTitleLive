@@ -89,9 +89,9 @@ Figure 2 Example of url within postman	4
 dark-rocket-8324. (sd). Postman. Opgehaald van Postman: https://www.postman.com/dark-rocket-8324-1/ifcc/documentation/yr8dut8/deepl?entity=request-9573889-b96426b8-ce8f-40a4-9966-38d499b87114
 
 ## Contact Information
-Fokker, Don: 1190558@student.roc-nijmegen.nl
-Reijnen, Iris: 1203136@student.roc-nijmegen.nl
-Ibrahimi, Moenir el: 1186234@student.roc-nijmegen.nl
+Fokker, Don: 1190558@student.roc-nijmegen.nl \n
+Reijnen, Iris: 1203136@student.roc-nijmegen.nl  
+Ibrahimi, Moenir el: 1186234@student.roc-nijmegen.nl <br />
 Pektas, Berkay: 1197777@student.roc-nijmegen.nl
 
 # Technical Design

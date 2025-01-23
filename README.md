@@ -73,8 +73,8 @@ To run:
    node index.js
    ```
 2.	Open the index.html from files:
-<img src="https://github.com/user-attachments/assets/8b11011c-aa98-4408-b967-039278a8d646" width="500">  
- 
+<img src="https://github.com/user-attachments/assets/8b11011c-aa98-4408-b967-039278a8d646" width="500">
+  
 ## Operational Guidelines
 ### Troubleshooting
 If you’re having problems with the translation here are a few possibilities that could solve this error:  

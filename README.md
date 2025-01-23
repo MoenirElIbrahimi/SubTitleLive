@@ -73,7 +73,7 @@ To run:
    node index.js
    ```
 2.	Open the index.html from files:
-<img src="https://github.com/user-attachments/assets/8b11011c-aa98-4408-b967-039278a8d646" width="500">  
+<img src="https://github.com/user-attachments/assets/8b11011c-aa98-4408-b967-039278a8d646" width="500"> <br />
 *Figure 1: File structure of SubTitleLive*  
 ## Operational Guidelines
 ### Troubleshooting
@@ -81,10 +81,10 @@ If you’re having problems with the translation here are a few possibilities th
 •	Ensure node is running.  
 •	Ensure the API-keys being used in the .env are the correct.  
 In case for further testing the DeepL API key can be tested within postman using post and URL like this (Make sure to replace the authorization/API-key with yours!):  
-<img src="https://github.com/user-attachments/assets/a89fde25-af6c-4b2b-b1af-5a7140170f75" width="500">    
+<img src="https://github.com/user-attachments/assets/a89fde25-af6c-4b2b-b1af-5a7140170f75" width="500"> <br />
 *Figure 2: Example of URL within postman*    
 After clicking “Send” it will produce a JSON response like this (Figure 3) which can then be used by the application to display the translated response.  
-<img src="https://github.com/user-attachments/assets/fa2894ac-6178-4713-bc1f-3a3da05dd26d" width="500">    
+<img src="https://github.com/user-attachments/assets/fa2894ac-6178-4713-bc1f-3a3da05dd26d" width="500"> <br />
 *Figure 3: DeepL API JSON response example*  
 (dark-rocket-8324, n.d.) 
  
@@ -165,16 +165,16 @@ The product is designed to make communication easier by translating spoken words
 ## User interface
 The interface is designed with simplicity in mind. A single page displays all the necessary tools and outputs. At the top of the screen, users can select their source and target languages from dropdown menus.
 The translated content is displayed in two clearly labelled boxes positioned side-by-side. One box shows the original text as spoken by the user, while the other shows the translated text. The connection to the translation backend is also clearly indicated, ensuring users know when the system is actively translating. See in figure 1. The overall layout prioritizes clarity, with minimal distractions, making the product accessible for users of all technical skill levels.  
- <img src="https://github.com/user-attachments/assets/994e1872-e2a1-4d76-891f-4142459507fb" width="500">  
+ <img src="https://github.com/user-attachments/assets/994e1872-e2a1-4d76-891f-4142459507fb" width="500">  <br />
 *Figure 1: Frontpage of SubTitleLive*
 ## Preconditions
-To ensure the product functions effectively, the following preconditions must be met:
-1.	Hardware Requirements:
+To ensure the product functions effectively, the following preconditions must be met:  
+1.	Hardware Requirements:  
 •	A high-quality microphone is essential for accurate speech recognition.  
-•	The device running the application must have a stable internet connection for real-time translation.
-2.	Environmental Requirements:
+•	The device running the application must have a stable internet connection for real-time translation.  
+2.	Environmental Requirements:  
 •	The product works best in quiet environments to minimize background noise interference.  
-•	Users should speak clearly and at a moderate pace for optimal speech recognition.
-3.	Delay and Processing Time:
+•	Users should speak clearly and at a moderate pace for optimal speech recognition.  
+3.	Delay and Processing Time:  
 •	A short delay is expected between speaking and the text appearing on the screen due to the time needed for processing speech recognition and translation.  
 •	The delay may vary depending on the complexity of the language and network conditions.

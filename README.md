@@ -72,7 +72,7 @@ To run:
    cd deepgram-proxy
    node index.js
    ```
-2.	Open the index.html from files:
+2.	Open the index.html from files:  
 <img src="https://github.com/user-attachments/assets/8b11011c-aa98-4408-b967-039278a8d646" width="500"> <br />
 *Figure 1: File structure of SubTitleLive*  
 ## Operational Guidelines

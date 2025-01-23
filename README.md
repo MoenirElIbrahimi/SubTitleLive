@@ -93,3 +93,48 @@ Fokker, Don: 1190558@student.roc-nijmegen.nl
 Reijnen, Iris: 1203136@student.roc-nijmegen.nl
 Ibrahimi, Moenir el: 1186234@student.roc-nijmegen.nl
 Pektas, Berkay: 1197777@student.roc-nijmegen.nl
+
+# Technical Design
+## Architecture
+The architecture of SubTitleLive follows a classic client-server model with three main components:
+•	Frontend: The client interface developed using HTML, CSS, and JavaScript, runs in the user's browser.
+•	Backend: A server-side API built with Node.js and Express.js, responsible for speech recognition and translation.
+•	External Services: Integration with the Deepgram API for real-time speech recognition and the DeepL API for translations.
+## Technologies
+SubTitleLive utilizes various programming languages, frameworks, and tools:
+### Frontend:
+•	HTML/CSS: For designing the user interface. 
+•	JavaScript: For dynamic interaction and API communication.
+### Backend:
+•	Node.js: A JavaScript runtime for server-side logic.
+•	Express.js: A framework for building API endpoints.
+### External APIs:
+•	Deepgram API: For real-time speech recognition.
+•	DeepL API: For text translation into multiple languages.
+### Other Tools:
+•	Body-parser: Middleware for processing incoming JSON data.
+•	CORS: For managing Cross-Origin Resource Sharing.
+•	Visual Studio Code: For HTML/CSS and JavaScript code development.
+## Database Design
+This project does not utilize a database, as it relies directly on the Deepgram API for real-time speech recognition and the DeepL API for text translation.
+Initially, an attempt was made to integrate an LLM (Ollama). However, this proved to be complex and unfeasible, leading to the decision to use the Deepgram and DeepL APIs.
+## Integrations
+The integration of SubTitleLive with external APIs has been designed to ensure smooth communication and efficient data processing.
+### Communication with External APIs:
+•	Deepgram API: Utilizes WebSockets for real-time audio processing. The client streams audio directly to Deepgram.
+•	DeepL API: Uses REST API with POST requests for text translation. Headers include an authorization key for access.
+### Interaction Steps:
+1.	The client sends audio to the backend via WebSockets.
+2.	The backend forwards the audio to Deepgram.
+3.	Deepgram returns the text as JSON.
+4.	The backend sends the text to the DeepL API for translation.
+5.	The translated text is returned to the client.
+## Security and Performance
+To ensure the safety and performance of SubTitleLive, several measures have been implemented.
+### Security
+The system's security begins with the careful handling of API keys. These keys, essential for accessing Deepgram and DeepL services, are securely stored in environment variables within a .env file. This ensures they are not exposed in the source code, protecting them from unauthorized access.
+Additionally, a strict CORS (Cross-Origin Resource Sharing) policy has been implemented. This limits backend access to trusted domains, reducing the risk of attacks from unknown sources.
+To ensure only valid and secure data is processed, all incoming requests are thoroughly validated. The backend checks if requests meet the required parameters before accepting them.
+### Performance
+Performance focuses on real-time processing. By leveraging WebSockets, latency in speech recognition is minimized. This protocol enables continuous and efficient audio data transfer between the client and server, providing users with near-instant feedback.
+With this approach, SubTitleLive combines a secure environment with smooth and fast performance, making it an essential tool for breaking language barriers in real-time.

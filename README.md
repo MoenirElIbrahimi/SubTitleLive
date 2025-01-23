@@ -12,7 +12,7 @@
    npm init -y
    npm install express body-parser cors node-fetch@2 dotenv
    ```
-4. Add DEEP_GRAM_KEY and DEEPL_API_KEY to your Deepgram API key in .env.
+4. Add DEEP_GRAM_KEY and DEEPL_API_KEY in .env.
 
 ## To run:
 1. Execute these commands:

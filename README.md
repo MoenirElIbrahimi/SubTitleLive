@@ -12,8 +12,7 @@
    npm init -y
    npm install express body-parser cors node-fetch@2 dotenv
    ```
-4. Change DEEP_GRAM_KEY to your Deepgram API key in index.html on line 22.
-5. Change DEEPL_API_KEY to your Deepl API key in index.js on line 27.
+4. Add DEEP_GRAM_KEY and DEEPL_API_KEY to your Deepgram API key in .env.
 
 ## To run:
 1. Execute these commands:

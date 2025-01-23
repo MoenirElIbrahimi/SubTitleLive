@@ -81,10 +81,10 @@ If you’re having problems with the translation here are a few possibilities th
 •	Ensure node is running.  
 •	Ensure the API-keys being used in the .env are the correct.  
 In case for further testing the DeepL API key can be tested within postman using post and URL like this (Make sure to replace the authorization/API-key with yours!):  
-<img src="https://github.com/user-attachments/assets/a89fde25-af6c-4b2b-b1af-5a7140170f75" width="500">  
-*Figure 2: Example of URL within postman*  
+<img src="https://github.com/user-attachments/assets/a89fde25-af6c-4b2b-b1af-5a7140170f75" width="500">    
+*Figure 2: Example of URL within postman*    
 After clicking “Send” it will produce a JSON response like this (Figure 3) which can then be used by the application to display the translated response.  
-<img src="https://github.com/user-attachments/assets/fa2894ac-6178-4713-bc1f-3a3da05dd26d" width="500">  
+<img src="https://github.com/user-attachments/assets/fa2894ac-6178-4713-bc1f-3a3da05dd26d" width="500">    
 *Figure 3: DeepL API JSON response example*  
 (dark-rocket-8324, n.d.) 
  
@@ -151,14 +151,14 @@ With this approach, SubTitleLive combines a secure environment with smooth and f
 ## The purpose of the product
 The product is designed to make communication easier by translating spoken words and displaying them as subtitles on a screen. This is particularly useful for situations where foreign teachers or students need to communicate effectively. By showing subtitles in a language their audience understands, the product bridges language barriers, helps everyone feel included and better understanding in real-time classroom or meeting environments.
 ## Functionalities
-1.	Language Selection:
+1.	Language Selection:  
 •	Users can select the source language (the language being spoken) and the target language (the language for the subtitles).  
-•	The product supports a wide range of languages to support diverse users.
-2.	Speech Recognition and Translation:
+•	The product supports a wide range of languages to support diverse users.  
+2.	Speech Recognition and Translation:  
 •	The user speaks into the microphone, and the spoken words are processed in real time.  
 •	The product uses advanced speech-to-text technology to convert spoken words into text in the source language.  
-•	The text is then translated into the target language using a machine translation engine.
-3.	Subtitle Display:
+•	The text is then translated into the target language using a machine translation engine.  
+3.	Subtitle Display:  
 •	Both the original and translated text are displayed on the screen simultaneously.  
 •	The text appears in two boxes: one for the source language (original spoken words) and one for the target language (translated subtitles).  
 •	A delay of a few seconds may occur due to processing, depending on the speed of the translation and network conditions.

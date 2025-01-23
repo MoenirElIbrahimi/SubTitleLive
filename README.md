@@ -138,3 +138,35 @@ To ensure only valid and secure data is processed, all incoming requests are tho
 ### Performance
 Performance focuses on real-time processing. By leveraging WebSockets, latency in speech recognition is minimized. This protocol enables continuous and efficient audio data transfer between the client and server, providing users with near-instant feedback.
 With this approach, SubTitleLive combines a secure environment with smooth and fast performance, making it an essential tool for breaking language barriers in real-time.
+
+# Functional Design
+## The purpose of the product
+The product is designed to make communication easier by translating spoken words and displaying them as subtitles on a screen. This is particularly useful for situations where foreign teachers or students need to communicate effectively. By showing subtitles in a language their audience understands, the product bridges language barriers, helps everyone feel included and better understanding in real-time classroom or meeting environments.
+## Functionalities
+1.	Language Selection:
+•	Users can select the source language (the language being spoken) and the target language (the language for the subtitles).
+•	The product supports a wide range of languages to support diverse users.
+2.	Speech Recognition and Translation:
+•	The user speaks into the microphone, and the spoken words are processed in real time.
+•	The product uses advanced speech-to-text technology to convert spoken words into text in the source language.
+•	The text is then translated into the target language using a machine translation engine.
+3.	Subtitle Display:
+•	Both the original and translated text are displayed on the screen simultaneously.
+•	The text appears in two boxes: one for the source language (original spoken words) and one for the target language (translated subtitles).
+•	A delay of a few seconds may occur due to processing, depending on the speed of the translation and network conditions.
+## User interface
+The interface is designed with simplicity in mind. A single page displays all the necessary tools and outputs. At the top of the screen, users can select their source and target languages from dropdown menus.
+The translated content is displayed in two clearly labelled boxes positioned side-by-side. One box shows the original text as spoken by the user, while the other shows the translated text. The connection to the translation backend is also clearly indicated, ensuring users know when the system is actively translating. See in figure 1. The overall layout prioritizes clarity, with minimal distractions, making the product accessible for users of all technical skill levels. 
+ <img src="https://github.com/user-attachments/assets/994e1872-e2a1-4d76-891f-4142459507fb" width="500">
+Figure 1: Frontpage of SubTitleLive
+## Preconditions
+To ensure the product functions effectively, the following preconditions must be met:
+1.	Hardware Requirements:
+•	A high-quality microphone is essential for accurate speech recognition.
+•	The device running the application must have a stable internet connection for real-time translation.
+2.	Environmental Requirements:
+•	The product works best in quiet environments to minimize background noise interference.
+•	Users should speak clearly and at a moderate pace for optimal speech recognition.
+3.	Delay and Processing Time:
+•	A short delay is expected between speaking and the text appearing on the screen due to the time needed for processing speech recognition and translation.
+•	The delay may vary depending on the complexity of the language and network conditions.

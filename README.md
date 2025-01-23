@@ -27,7 +27,7 @@ SubTitleLive is designed to prioritize scalability and reliability. The system i
 2.	The Deepgram transcribes the audio to text.
 3.	The text is passed to the DeepL translation model, where it is translated into the selected languages.
 4.	Output and input are displayed on the source and target language boxes.
-Implementation Guidelines
+## Implementation Guidelines
 ### Prerequisites
 There are a few tools you will need to use this software:  
 •	Development Tools: A text-editor or IDE of choice (e.g., Visual Studio Code).  
